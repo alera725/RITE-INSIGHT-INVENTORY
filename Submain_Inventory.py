@@ -19,7 +19,7 @@ class process_inventory():
     def inventory(self,full_import_path,full_export_path):
         try:
             
-
+            #Set app to work with Excel
             xlapp = win32.Dispatch('Excel.Application')
             xlapp.DisplayAlerts = False
             xlapp.Visible = False
@@ -34,23 +34,30 @@ class process_inventory():
             
             #Other process copying sheets
             sheet=xlbook1.Worksheets(1)
-            sheet.Move(Before=xlbook2.Worksheets("INVENTORY"))
+            #sheet.Move(Before=xlbook2.Worksheets("INVENTORY")) #This one is good too but is better use Copy instead Move 
+            sheet.Copy(Before=xlbook2.Worksheets(1))
             
             #Borrar sheet llamada Inventory en el xlbook2 y cambiar el nombre a la sheet RateOfSale por Inventory
             xlbook2.Worksheets(2).Delete()
             xlbook2.Worksheets(1).Name = "INVENTORY"
             
+            #Refresh connections and data
+            for conn in xlbook2.connections:
+                conn.Refresh()
+                
             xlbook2.RefreshAll()
+            xlapp.CalculateUntilAsyncQueriesDone()# this will actually wait for the excel workbook to finish updating
             
             #Save and close
-            xlbook1.Save
-            xlbook1.Close(True)
-            #xlbook1.quit
+            xlbook1.Save()
+            xlbook1.Close()
             
-            xlbook2.Save
-            xlbook2.Close(True)
-            #xlbook2.quit
+            xlbook2.Save()
+            xlbook2.Close()
             
+            xlapp.Quit()
+            
+            #Delete app and xlbooks
             del xlbook1
             del xlbook2            
             del xlapp 
@@ -73,12 +80,16 @@ class process_inventory():
             xlbook1 = xlapp.Workbooks.Open(path1)
         
             #Update all
+            for conn in xlbook1.connections:
+                conn.Refresh()
+                
             xlbook1.RefreshAll()
+            xlapp.CalculateUntilAsyncQueriesDone()# this will actually wait for the excel workbook to finish updating
             
             #Save and close
-            xlbook1.Save
+            xlbook1.Save()
             xlbook1.Close()
-            #xlbook1.quit
+            xlapp.Quit()
         
             del xlbook1
             del xlapp 
@@ -104,14 +115,18 @@ class process_inventory():
             xlbook1 = xlapp.Workbooks.Open(max_file)
         
             #Update all
+            for conn in xlbook1.connections:
+                conn.Refresh()
+                
             xlbook1.RefreshAll()
+            xlapp.CalculateUntilAsyncQueriesDone()# this will actually wait for the excel workbook to finish updating
             
             #Save and close
             #xlbook1.save(path + '\\' + name)
             xlbook1.SaveAs(Filename=path + '\\' + name)
             #xlbook1.Save
             xlbook1.Close()
-            #xlbook1.quit
+            xlapp.Quit()
         
             del xlbook1
             del xlapp 
