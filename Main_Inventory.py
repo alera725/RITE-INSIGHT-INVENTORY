@@ -32,6 +32,7 @@ class Inventory_RITE_INSIGHT_DATA(unittest.TestCase):
         
         self.PageProcess = process_inventory()
         
+        #Si se corre desde otra pc distinta a la de Alejandro Mover las rutas tanto import como export pero la de export cambiar completamente a donde Arturo tenga los queries con las direcciones en su pc
         #paths to import each report 
         self.import_path_inventory = 'C:\\Users\\alejandro.gutierrez\\OneDrive - Carlin Group - CA Fortune\\Documents\\KROGER SELENIUM\\RITE INSIGHT\\INVENTORY'
 
@@ -116,7 +117,7 @@ class Inventory_RITE_INSIGHT_DATA(unittest.TestCase):
     #@unittest.skip('Not need now')
     def test_EVOLVE_BRANDS(self):
         
-        import_name = 'EVOLVE_BRANDS RITE INSIGHT week %s.xlsx'%self.week_number
+        import_name = 'EVOLVE RITE INSIGHT week %s.xlsx'%self.week_number
         export_name = 'EVOLVE BRANDS LLC.xlsx'
         
         full_import_path = self.import_path_inventory + '\\' + import_name
@@ -141,7 +142,7 @@ class Inventory_RITE_INSIGHT_DATA(unittest.TestCase):
         print("%s is READY!!"%export_name) 
      
         
-    #@unittest.skip('Not need now')
+    @unittest.skip('Not need now')
     def test_HARIBO_RITE(self):
         
         import_name = 'Haribo RITE AID Dashboard.xlsx'
@@ -153,7 +154,7 @@ class Inventory_RITE_INSIGHT_DATA(unittest.TestCase):
         print("%s is READY!!"%import_name) 
         
         
-    #@unittest.skip('Not need now')
+    @unittest.skip('Not need now')
     def test_HARIBO_WEEKLY(self):
         
         import_name = 'Haribo Weekly Trends RITE AID.xlsm'
@@ -165,7 +166,7 @@ class Inventory_RITE_INSIGHT_DATA(unittest.TestCase):
         print("%s is READY!!"%import_name) 
         
 
-    #@unittest.skip('Not need now')
+    @unittest.skip('Not need now')
     def test_CANDY(self):
                         
         # Finding the next saturday to rename the file

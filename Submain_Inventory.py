@@ -42,11 +42,11 @@ class process_inventory():
             xlbook2.Worksheets(1).Name = "INVENTORY"
             
             #Refresh connections and data
-            for conn in xlbook2.connections:
-                conn.Refresh()
+           # for conn in xlbook2.connections:
+           #     conn.Refresh()
                 
-            xlbook2.RefreshAll()
-            xlapp.CalculateUntilAsyncQueriesDone()# this will actually wait for the excel workbook to finish updating
+           # xlbook2.RefreshAll()
+           # xlapp.CalculateUntilAsyncQueriesDone()# this will actually wait for the excel workbook to finish updating
             
             #Save and close
             xlbook1.Save()
@@ -71,7 +71,7 @@ class process_inventory():
         try:
             xlapp = win32.Dispatch('Excel.Application')
             xlapp.DisplayAlerts = False
-            xlapp.Visible = False
+            xlapp.Visible = True #False
             
             #Set paths
             path1 = path
